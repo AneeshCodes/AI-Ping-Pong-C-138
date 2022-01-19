@@ -1,4 +1,7 @@
-body
-{
+.heading{
+  width: 100%;
+}
 
+.heading button{
+  float: right; 
 }
