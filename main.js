@@ -1,4 +1,5 @@
-
+rwristX = 0
+rwristY = 0
 /*created by prashant shukla */
 
 var paddle2 =10,paddle1=10;
@@ -22,13 +23,33 @@ var ball = {
 }
 
 function setup(){
-  var canvas =  createCanvas(700,600);
+  canvas = createCanvas(700,600);
+  canvas.parent('canvas')
+  canvas.center()
+  video = createCapture(VIDEO)
+  video.size(700,600)
+  load = ml5.poseNet(video, modelLoaded)
+  load.on('pose', gotResults)
+  video.hide()
+}
+
+function modelLoaded(){
+  console.log("model loaded")
+}
+
+function gotResults(results){
+  if(results.length > 0){
+    console.log(results)
+    rwristX = results[0].pose.nose.x
+    rwristY = results[0].pose.nose.y
+  }
 }
 
 
 function draw(){
-
- background(0); 
+  background(0);
+  image(video, 0, 0, 700, 600)
+  
 
  fill("black");
  stroke("black");
